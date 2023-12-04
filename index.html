@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width= , initial-scale=1.0">
+	<title>Document</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollTrigger.min.js"></script>
+<script type="importmap">
+	{
+		"imports": {
+			"three": "https://unpkg.com/three/build/three.module.js"
+		}
+	}
+</script>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>	
+
+<script type="module"> 
+
+import * as THREE from 'three';
+
+//Manejo de scroll trigger con GSAP
+
+gsap.registerPlugin(ScrollTrigger);
+
+
+// Manejo de geometria, vertices del cubo 
+
+const verticesOfCube = [
+	-1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+	-1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+];
+
+const indicesOfFaces = [
+	2,1,0,    0,3,2,
+	0,4,7,    7,3,0,
+	0,1,5,    5,4,0,
+	1,2,6,    6,5,1,
+	2,3,7,    7,6,2,
+	4,5,6,    6,7,4
+];
+
+
+
+
+// init
+
+const camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 0.01, 10 );
+camera.position.z = 1;
+
+const scene = new THREE.Scene();
+
+// RING MOVING 
+
+const geometryOne = new THREE.TorusGeometry( 0.750, 0.033, 16, 80 );
+const materialOne = new THREE.MeshMatcapMaterial();
+const matcaptexture = new THREE.TextureLoader().load('https://preview.redd.it/t6xte7ropie61.png?auto=webp&s=731580ca49d10bfbd83b47b49efb20cbe2b5a114');
+
+materialOne.matcap = matcaptexture;
+
+
+const firstGeometry = new THREE.BoxGeometry( 0.10, 0.10, 0.10);
+const firstMaterial = new THREE.MeshMatcapMaterial();
+const textureTwo = new THREE.TextureLoader().load('https://th.bing.com/th/id/R.2295ff6c603d0446b6a9bda5e95ec45a?rik=iLtx%2fWDGIr7XMw&riu=http%3a%2f%2fmap.3dmodelfree.com%2fimguploads%2fImage_0709%2f1999%2fvray%2f5%2f033.jpg&ehk=8XjOmJzu6mGTggdv5Tz3Qm84kCBO%2bbcffmnETCfi894%3d&risl=&pid=ImgRaw&r=0');
+firstMaterial.matcap = textureTwo;
+
+const spheric = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.09, 32 );
+const material = new THREE.MeshMatcapMaterial();
+const shpere = new THREE.Mesh( spheric, materialOne );
+
+
+
+const cube = new THREE.Mesh( firstGeometry, materialOne );
+
+const torus = new THREE.Mesh( geometryOne, firstMaterial );
+
+const torusTwo = new THREE.TorusGeometry( 0.750, 0.033, 16, 80 );
+const materialTwo = new THREE.MeshMatcapMaterial();
+const torusTwO = new THREE.Mesh( torusTwo, firstMaterial );
+
+// CUBE
+
+
+const geometry = new THREE.BoxGeometry( 0.10, 0.10, 0.10);
+const mesh = new THREE.Mesh( geometry, materialOne );
+
+const secondtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10 );
+const cubo = new THREE.Mesh( secondtGeometry, materialOne );
+
+const thirdtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10);
+const cubi = new THREE.Mesh( thirdtGeometry, materialOne );
+
+const fourthGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10);
+const cuba = new THREE.Mesh( fourthGeometry, materialOne );
+
+const fifthtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10 );
+const cubu = new THREE.Mesh( fifthtGeometry, materialOne );
+
+const sixthtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10 );
+const cubew = new THREE.Mesh( sixthtGeometry, materialOne );
+
+const seventhtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10 );
+const cubewn = new THREE.Mesh( seventhtGeometry, materialOne );
+
+//const planeGeometry = new THREE.PlaneGeometry(20, 20);
+//const planeMaterial = new THREE.MeshBasicMaterial({side: true, visible: false});
+//		
+//const planeMesh = new THREE.Mesh(planeGeometry, planeMaterial);
+//planeMesh.rotateX(-Math.PI / 2);
+//
+//
+//
+//const grid = new THREE.GridHelper(20, 20);
+
+// SCENE OBJECTS 
+
+
+scene.add( torus,torusTwO, cube, mesh,cubo,cubi,cuba,cubu, cubew, cubewn,shpere );
+const renderer = new THREE.WebGLRenderer( { antialias: true } );
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setAnimationLoop( animation );
+document.body.appendChild( renderer.domElement );
+
+
+// Position
+
+	cubewn.position.x = -0.8;
+	cubewn.position.y = -0.39;
+	cubew.position.x = 0.8;
+	cubew.position.y = -0.4;
+	cubu.position.x = -0.8;
+	cubu.position.y = 0.35;
+	cuba.position.x = -0.1;
+	cuba.position.y = 0.4;
+	torus.position.x = -0.1;
+	torus.position.y = -0.3;
+	torusTwO.position.x = 0.1;
+	torusTwO.position.y = 0.3;
+	mesh.position.x = -0.5;
+	cube.position.x = 0;
+	cube.position.y = -0.2;
+	cubo.position.x = 0.3;
+	cubo.position.y = 0.1;
+	cubi.position.x = 0.6;
+	cubi.position.y = 0.5;
+
+// Animation with GSAP
+
+//gsap.from(cuba.position, { duration: 1.5, opacity: 0,  y: -550 });
+//gsap.from(cube.position, { duration: 1.9, opacity: 0,  y: -450 });
+//gsap.from(cubi.position, { duration: 2.7, opacity: 0, x: -1700, y: -1550 });
+//gsap.from(cubo.position, { duration: 2.9, opacity: 0, x: 800, y: 250 });
+//gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
+//gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 1600, y: 550 });
+//gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
+//gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 550, y: 1550 });
+//gsap.from(torus.position, { duration: 5.5, opacity: 0, x: -1150, y: -1550 });
+//gsap.from(torusTwO.position, { duration: 5.5, opacity: 0, x: 1150, y: 1550 });
+
+
+function animation(time){
+//
+
+
+cubewn.rotation.y = time / 700;
+cubewn.rotation.x = time / -550;
+cubew.rotation.y = time / 900;
+cubew.rotation.x = time / -750;
+cubu.rotation.y = time / 900;
+cubu.rotation.x = time / -1450;
+cuba.rotation.y = time / 800;
+cuba.rotation.x = time / -1150;
+torus.rotation.y = time / 1800;
+torus.rotation.x = time / 1750;
+torusTwO.rotation.y = time /-1800;
+torusTwO.rotation.x = time / -1750;
+mesh.rotation.y = time / -800;
+mesh.rotation.x = time / -650;
+cube.rotation.x = time / 1050;
+cube.rotation.y = time / -800;
+cubo.rotation.x = time / 450;
+cubo.rotation.y = time / -800;
+cubi.rotation.x = time / 950;
+cubi.rotation.y = time / 800;
+
+mesh.setAnimationLoop = true;
+
+renderer.render( scene, camera );
+
+
+}
+
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setAnimationLoop( animation );
+document.body.appendChild( renderer.domElement );
+
+	</script>
+
+</body>
+</html>
