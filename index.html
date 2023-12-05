@@ -18,6 +18,7 @@
 </head>
 <body>	
 
+
 <script type="module"> 
 
 import * as THREE from 'three';
@@ -148,46 +149,37 @@ document.body.appendChild( renderer.domElement );
 gsap.globalTimeline.timeScale(0.5);
 
 
-gsap.from(cuba.position, { duration: 1.5, opacity: 0,  y: -550 });
-gsap.from(cube.position, { duration: 1.9, opacity: 0,  y: -450 });
-gsap.from(cubi.position, { duration: 2.7, opacity: 0, x: -1700, y: -1550 });
-gsap.from(cubo.position, { duration: 2.9, opacity: 0, x: 800, y: 250 });
+gsap.from(cuba.position, { duration: 1.9, opacity: 0, x:-800,  y: -550 });
+gsap.from(cube.position, { duration: 2.3, opacity: 0,  y: -450 });
+gsap.from(cubi.position, { duration: 3.0, opacity: 0, x: Math.PI * 2, y: -1550});
+gsap.from(cubo.position, { duration: 3.1, opacity: 0, x: 800, y: 250,  });
 gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
-gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 1600, y: 550 });
+gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: Math.PI * 2, y: 550 });
 gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
 gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 550, y: 1550 });
-gsap.from(torus.position, { duration: 5.5, opacity: 0, x: -1150, y: -1550 });
-gsap.from(torusTwO.position, { duration: 5.5, opacity: 0, x: 1150, y: 1550 });
-gsap.from(shpere.rotation, { duration: 4, x: Math.PI * 2, y: Math.PI * 2, repeat: -1, ease: "elastic" });
+gsap.from(torus.position, { duration: 4.5, opacity: 0, x: -2850});
+gsap.from(torusTwO.position, { duration: 4.5, opacity: 0, x: 1850 });
+gsap.from(shpere.rotation, { duration: 4, x: Math.PI * 2, y: Math.PI * 2, repeat: -1 });
+
+//gsap.to(torus.position, { duration: 5.5, opacity: 0, x:150})
+//
+//gsap.to(cubo.position, {
+//duration:2.5,
+//ease: "bounce.out",
+//y: -500
+//});
 
 
-gsap.to( torus ,{
-
-  duration:1.5,
-  x:600,
-  scrollTrigger:{
-    trigger: torus,
-    start:"top 10%",
-    end:"bottom 100%",
-    scrub:true,
-    toggleActions:"play none none reverse",
-  // markers:true,
-  },
-
-})
-
-
-
-
-ScrollTrigger.create({
-  trigger: ".banner-section",
-  start: "top center",
-  onEnter: () => gsap.fromTo(".banner-section", { opacity: 0, x: -10, duration: 5 }),
-})
-
-
-
-
+//
+//ScrollTrigger.create({
+//  trigger: torus,  // Elemento de activación
+//  start: "top 90%",  // Punto de inicio de la animación inversa
+//  end: "bottom 50%",  // Punto de finalización de la animación inversa
+//  onEnter: () => gsap.to(torus.position, { duration: 2, opacity: 0, x: -200, y: -200, ease: "power2.out" }),
+//  onLeaveBack: () => gsap.from(torus.position, { duration: 2, opacity: 0, x: -1150, y: -1550, ease: "power2.in" }),
+//	markers: true,
+//});
+//
 
 
 function animation(time){
