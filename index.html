@@ -57,20 +57,17 @@ const scene = new THREE.Scene();
 
 const geometryOne = new THREE.TorusGeometry( 0.750, 0.033, 16, 80 );
 const materialOne = new THREE.MeshMatcapMaterial();
-const matcaptexture = new THREE.TextureLoader().load('https://preview.redd.it/t6xte7ropie61.png?auto=webp&s=731580ca49d10bfbd83b47b49efb20cbe2b5a114');
+const matcaptexture = new THREE.TextureLoader().load('https://cdna.artstation.com/p/marketplace/presentation_assets/001/040/306/medium/file.jpg?1625580910');
 
 materialOne.matcap = matcaptexture;
 
 
 const firstGeometry = new THREE.BoxGeometry( 0.10, 0.10, 0.10);
 const firstMaterial = new THREE.MeshMatcapMaterial();
-const textureTwo = new THREE.TextureLoader().load('https://th.bing.com/th/id/R.2295ff6c603d0446b6a9bda5e95ec45a?rik=iLtx%2fWDGIr7XMw&riu=http%3a%2f%2fmap.3dmodelfree.com%2fimguploads%2fImage_0709%2f1999%2fvray%2f5%2f033.jpg&ehk=8XjOmJzu6mGTggdv5Tz3Qm84kCBO%2bbcffmnETCfi894%3d&risl=&pid=ImgRaw&r=0');
-firstMaterial.matcap = textureTwo;
 
-const spheric = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 0.09, 32 );
+const spheric = new THREE.BoxGeometry(  0.10, 0.10, 0.10);
 const material = new THREE.MeshMatcapMaterial();
 const shpere = new THREE.Mesh( spheric, materialOne );
-
 
 
 const cube = new THREE.Mesh( firstGeometry, materialOne );
@@ -83,11 +80,10 @@ const torusTwO = new THREE.Mesh( torusTwo, firstMaterial );
 
 // CUBE
 
-
-const geometry = new THREE.BoxGeometry( 0.10, 0.10, 0.10);
+const geometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10);
 const mesh = new THREE.Mesh( geometry, materialOne );
 
-const secondtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10 );
+const secondtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10);
 const cubo = new THREE.Mesh( secondtGeometry, materialOne );
 
 const thirdtGeometry = new THREE.BoxGeometry(  0.10, 0.10, 0.10);
@@ -133,7 +129,7 @@ document.body.appendChild( renderer.domElement );
 	cubew.position.y = -0.4;
 	cubu.position.x = -0.8;
 	cubu.position.y = 0.35;
-	cuba.position.x = -0.1;
+	cuba.position.x = -0.3;
 	cuba.position.y = 0.4;
 	torus.position.x = -0.1;
 	torus.position.y = -0.3;
@@ -149,42 +145,74 @@ document.body.appendChild( renderer.domElement );
 
 // Animation with GSAP
 
-//gsap.from(cuba.position, { duration: 1.5, opacity: 0,  y: -550 });
-//gsap.from(cube.position, { duration: 1.9, opacity: 0,  y: -450 });
-//gsap.from(cubi.position, { duration: 2.7, opacity: 0, x: -1700, y: -1550 });
-//gsap.from(cubo.position, { duration: 2.9, opacity: 0, x: 800, y: 250 });
-//gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
-//gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 1600, y: 550 });
-//gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
-//gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 550, y: 1550 });
-//gsap.from(torus.position, { duration: 5.5, opacity: 0, x: -1150, y: -1550 });
-//gsap.from(torusTwO.position, { duration: 5.5, opacity: 0, x: 1150, y: 1550 });
+gsap.globalTimeline.timeScale(0.5);
+
+
+gsap.from(cuba.position, { duration: 1.5, opacity: 0,  y: -550 });
+gsap.from(cube.position, { duration: 1.9, opacity: 0,  y: -450 });
+gsap.from(cubi.position, { duration: 2.7, opacity: 0, x: -1700, y: -1550 });
+gsap.from(cubo.position, { duration: 2.9, opacity: 0, x: 800, y: 250 });
+gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
+gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 1600, y: 550 });
+gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
+gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 550, y: 1550 });
+gsap.from(torus.position, { duration: 5.5, opacity: 0, x: -1150, y: -1550 });
+gsap.from(torusTwO.position, { duration: 5.5, opacity: 0, x: 1150, y: 1550 });
+gsap.from(shpere.rotation, { duration: 4, x: Math.PI * 2, y: Math.PI * 2, repeat: -1, ease: "elastic" });
+
+
+gsap.to( torus ,{
+
+  duration:1.5,
+  x:600,
+  scrollTrigger:{
+    trigger: torus,
+    start:"top 10%",
+    end:"bottom 100%",
+    scrub:true,
+    toggleActions:"play none none reverse",
+  // markers:true,
+  },
+
+})
+
+
+
+
+ScrollTrigger.create({
+  trigger: ".banner-section",
+  start: "top center",
+  onEnter: () => gsap.fromTo(".banner-section", { opacity: 0, x: -10, duration: 5 }),
+})
+
+
+
+
 
 
 function animation(time){
 //
 
-
-cubewn.rotation.y = time / 700;
-cubewn.rotation.x = time / -550;
-cubew.rotation.y = time / 900;
-cubew.rotation.x = time / -750;
-cubu.rotation.y = time / 900;
-cubu.rotation.x = time / -1450;
-cuba.rotation.y = time / 800;
-cuba.rotation.x = time / -1150;
-torus.rotation.y = time / 1800;
-torus.rotation.x = time / 1750;
-torusTwO.rotation.y = time /-1800;
-torusTwO.rotation.x = time / -1750;
-mesh.rotation.y = time / -800;
-mesh.rotation.x = time / -650;
+cubewn.rotation.y = time / 1900;
+cubewn.rotation.x = time / -1550;
+cubew.rotation.y = time / 1900;
+cubew.rotation.x = time / -1750;
+cubu.rotation.y = time / 1900;
+cubu.rotation.x = time / -2450;
+cuba.rotation.y = time / 1900;
+cuba.rotation.x = time / -2150;
+torus.rotation.y = time / 2800;
+torus.rotation.x = time / 3750;
+torusTwO.rotation.y = time /-2800;
+torusTwO.rotation.x = time / -3750;
+mesh.rotation.y = time / -1900;
+mesh.rotation.x = time / -1650;
 cube.rotation.x = time / 1050;
-cube.rotation.y = time / -800;
+cube.rotation.y = time / -1900;
 cubo.rotation.x = time / 450;
-cubo.rotation.y = time / -800;
+cubo.rotation.y = time / -1900;
 cubi.rotation.x = time / 950;
-cubi.rotation.y = time / 800;
+cubi.rotation.y = time / 1900;
 
 mesh.setAnimationLoop = true;
 
