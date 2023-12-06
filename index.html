@@ -22,6 +22,7 @@
 <script type="module"> 
 
 import * as THREE from 'three';
+import {OrbitControls} from './orbitControls/OrbitControls.js'
 
 
 //Manejo de scroll trigger con GSAP
@@ -47,28 +48,27 @@ const indicesOfFaces = [
 
 // init
 
-const camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 0.01, 10 );
-camera.position.z = 1;
-
 const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(85,window.innerWidth/window.innerHeight,45,30000);
+camera.position.set(-1000,-100,-700);
 
 const materialOne = new THREE.MeshMatcapMaterial();
 const matcaptexture = new THREE.TextureLoader().load('img/casey-yau-as-tn-fotor-2023120625029.png');
 
 materialOne.matcap = matcaptexture;
 
-const firstGeometry = new THREE.SphereGeometry( 0.1, 15, 12);
-const firstMaterial = new THREE.MeshMatcapMaterial();
+const firstGeometry = new THREE.SphereGeometry( 80, 15, 12);
+const firstMaterial = new THREE.MeshNormalMaterial();
 const cube = new THREE.Mesh( firstGeometry, materialOne );
 
 // RING MOVING 
 
-const geometryOne = new THREE.TorusGeometry( 0.750, 0.033, 16, 80 );
-const torus = new THREE.Mesh( geometryOne, firstMaterial );
+const geometryOne = new THREE.TorusGeometry( 615, 0.033, 16, 80 );
+const torus = new THREE.Mesh( geometryOne, materialOne );
 
-const torusTwo = new THREE.TorusGeometry( 0.750, 0.033, 16, 80 );
+const torusTwo = new THREE.TorusGeometry( 615, 0.033, 16, 80 );
 const materialTwo = new THREE.MeshMatcapMaterial();
-const torusTwO = new THREE.Mesh( torusTwo, firstMaterial );
+const torusTwO = new THREE.Mesh( torusTwo, materialOne );
 
 //MATCAP TEXTURES
 
@@ -90,30 +90,32 @@ const matCapTextureCinco = new THREE.TextureLoader().load("img/R-fotor-202312062
 voidMaterial.matcap = matCapTextureCinco;
 
 // CUBE
-const spheric = new THREE.SphereGeometry( 0.045, 15, 12);
+const spheric = new THREE.SphereGeometry( 225, 15, 12);
 const material = new THREE.MeshMatcapMaterial();
 const shpere = new THREE.Mesh( spheric, fireMaterial );
 
-const geometry = new THREE.SphereGeometry( 0.09, 15, 12);
-const mesh = new THREE.Mesh( geometry, waterMaterial );
+const geometry = new THREE.SphereGeometry( 90, 15, 12);
+const mesh = new THREE.Mesh( geometry, materialOne );
 
-const secondtGeometry = new THREE.SphereGeometry( 0.12, 15, 12);
+const secondtGeometry = new THREE.SphereGeometry( 120, 15, 12);
 const cubo = new THREE.Mesh( secondtGeometry, voidMaterial );
 
-const thirdtGeometry = new THREE.SphereGeometry( 0.13, 15, 12);
+const thirdtGeometry = new THREE.SphereGeometry( 130, 15, 12);
 const cubi = new THREE.Mesh( thirdtGeometry, rockMaterial );
 
-const fourthGeometry = new THREE.SphereGeometry( 0.08, 15, 12);
+const fourthGeometry = new THREE.SphereGeometry( 80, 15, 12);
 const cuba = new THREE.Mesh( fourthGeometry, waterMaterial );
 
-const fifthtGeometry = new THREE.SphereGeometry( 0.06, 15, 12);
+const fifthtGeometry = new THREE.SphereGeometry( 68, 15, 12);
 const cubu = new THREE.Mesh( fifthtGeometry, materialOne );
 
-const sixthtGeometry = new THREE.SphereGeometry( 0.4, 15, 12);
+const sixthtGeometry = new THREE.SphereGeometry( 140, 15, 12);
 const cubew = new THREE.Mesh( sixthtGeometry, waterMaterial );
 
-const seventhtGeometry = new THREE.SphereGeometry( 0.06, 15, 12);
+const seventhtGeometry = new THREE.SphereGeometry( 96, 15, 12);
 const cubewn = new THREE.Mesh( seventhtGeometry, rockMaterial );
+
+
 
 //const planeGeometry = new THREE.PlaneGeometry(20, 20);
 //const planeMaterial = new THREE.MeshBasicMaterial({side: true, visible: false});
@@ -136,6 +138,13 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 
 document.body.appendChild( renderer.domElement );
 
+
+// Animating elements to rotate // OrbitControls
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.minDistance = 500;
+controls.maxDistance = 1500;
+
+
   animate();
 
   function animate() {
@@ -146,48 +155,47 @@ document.body.appendChild( renderer.domElement );
 
 // Position
 
-	cubewn.position.x = -0.8;
-	cubewn.position.y = -0.39;
-	cubew.position.x = 0.8;
-	cubew.position.y = -0.4;
-	cubu.position.x = -0.8;
-	cubu.position.y = 0.35;
-	cuba.position.x = -0.3;
-	cuba.position.y = 0.4;
-	torus.position.x = -0.1;
-	torus.position.y = -0.3;
-	torusTwO.position.x = 0.1;
-	torusTwO.position.y = 0.3;
-	mesh.position.x = -0.5;
-	cube.position.x = 0;
-	cube.position.y = -0.2;
-	cubo.position.x = 0.3;
-	cubo.position.y = 0.1;
-	cubi.position.x = 0.6;
-	cubi.position.y = 0.5;
+	cubewn.position.x = -900;
+	cubewn.position.y = -55;
+	cubew.position.x = -450;
+	cubew.position.y = -750;
+	cubu.position.x = -1100;
+	cubu.position.y = 150;
+	cuba.position.x = 480;
+	cuba.position.y = 420;
+	torus.position.x = -1250;
+	torus.position.y = -300;
+	torusTwO.position.x = 900;
+	torusTwO.position.y = -400;
+	mesh.position.x = 900;
+	cube.position.x = -1250;
+	cube.position.y = -500;
+	cubo.position.x = 350;
+	cubo.position.y = 1000;
+	cubi.position.x = 1560;
+	cubi.position.y = 750;
 
 // Animation with GSAP
 
-gsap.globalTimeline.timeScale(0.5);
+gsap.globalTimeline.timeScale(0.8);
 
 
-gsap.from(cuba.position, { duration: 1.9, opacity: 0, x:-800,  y: -550 });
-gsap.from(cuba.position, { duration: 1.9, opacity: 0, x:-800,  y: -550 });
-gsap.from(cube.position, { duration: 2.3, opacity: 0,  y: -450 });
-gsap.from(cubi.position, { duration: 3.0, opacity: 0, x: Math.PI * 2, y: -1550});
+gsap.from(cuba.position, { duration: 3.9, opacity: 0, x: -1800,  y: -550 });
+gsap.from(cube.position, { duration: 2.9, opacity: 0, x: 500, y: -450 });
+gsap.from(cubi.position, { duration: 4.0, opacity: 0, x: 1400, y: -2550});
 gsap.from(cubo.position, { duration: 3.1, opacity: 0, x: 800, y: 250,  });
 gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
-gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: Math.PI * 2, y: 550 });
+gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 750, y: 1550 });
 gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
-gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 550, y: 1550 });
+gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 5550, y: -7550 });
 gsap.from(torus.position, { duration: 4.5, opacity: 0, x: -2850});
 gsap.from(torusTwO.position, { duration: 4.5, opacity: 0, x: 1850 });
-gsap.from(shpere.rotation, { duration: 4, x: Math.PI * 2, y: Math.PI * 2, repeat: -1 });
+gsap.from(shpere.rotation, { duration: 10, opacity: 1, x: -800, y: 790 });
 
-
-setTimeout(() => {
-    scene.background = new THREE.Color("#E9F1F7"); 
-}, 8700);
+//
+//setTimeout(() => {
+//    scene.background = new THREE.Color("#EBEBEB"); 
+//}, 10000);
 
 //gsap.to(scene.background, { duration: 5, color: "#E9F1F7" });
   
