@@ -49,74 +49,86 @@ const indicesOfFaces = [
 // init
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(85,window.innerWidth/window.innerHeight,45,30000);
+const camera = new THREE.PerspectiveCamera(95,window.innerWidth/window.innerHeight,45,30000);
 camera.position.set(-1000,-100,-700);
 
+
 const materialOne = new THREE.MeshMatcapMaterial();
-const matcaptexture = new THREE.TextureLoader().load('img/casey-yau-as-tn-fotor-2023120625029.png');
+const matcaptexture = new THREE.TextureLoader().load('https://paulohscwb.github.io/solar-system/imagens/2k_neptune.jpg');
 
 materialOne.matcap = matcaptexture;
 
-const firstGeometry = new THREE.SphereGeometry( 80, 15, 12);
-const firstMaterial = new THREE.MeshNormalMaterial();
+const firstGeometry = new THREE.SphereGeometry( 80, 50, 12);
+const firstMaterial = new THREE.MeshDepthMaterial();
 const cube = new THREE.Mesh( firstGeometry, materialOne );
 
 // RING MOVING 
 
-const geometryOne = new THREE.TorusGeometry( 615, 0.033, 16, 80 );
-const torus = new THREE.Mesh( geometryOne, materialOne );
 
-const torusTwo = new THREE.TorusGeometry( 615, 0.033, 16, 80 );
+const saturnoMaterial = new THREE.MeshMatcapMaterial();
+const matCapTextureSaturno = new THREE.TextureLoader().load("https://th.bing.com/th/id/R.ae2a8ad06203281ecae14a8ba39f4acf?rik=Iq82Mj5zbTV9yw&riu=http%3a%2f%2fwww.solarsystemscope.com%2ftextures%2fpreviews%2fpreview_saturn_ring.jpg&ehk=XOaCh4bbqVj5tfcvSk1lK9%2feiiwAzSKCnQallE%2bZPt4%3d&risl=&pid=ImgRaw&r=0")
+saturnoMaterial.matcap = matCapTextureSaturno;
+
+
+const geometryOne = new THREE.TorusGeometry( 615, 30, 16, 80 );
+const torus = new THREE.Mesh( geometryOne, saturnoMaterial );
+
+const torusTwo = new THREE.TorusGeometry( 675, 30, 16, 80 );
 const materialTwo = new THREE.MeshMatcapMaterial();
-const torusTwO = new THREE.Mesh( torusTwo, materialOne );
+const torusTwO = new THREE.Mesh( torusTwo, saturnoMaterial );
+
+const torusThree = new THREE.TorusGeometry( 56, 30, 16, 80 );
+const torusTres = new THREE.Mesh( torusThree, saturnoMaterial );
 
 //MATCAP TEXTURES
 
+
+
+
 const rockMaterial = new THREE.MeshMatcapMaterial();
-const matCapTextureDos = new THREE.TextureLoader().load("img/Rock034_PREVIEW-fotor-2023120624925.png")
+const matCapTextureDos = new THREE.TextureLoader().load("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Gusev_-_PIA00183-MC-23-AeolisRegion-19980605_(cropped).jpg/180px-Gusev_-_PIA00183-MC-23-AeolisRegion-19980605_(cropped).jpg")
 rockMaterial.matcap = matCapTextureDos;
 
-
 const fireMaterial = new THREE.MeshMatcapMaterial();
-const matCapTextureTres = new THREE.TextureLoader().load("img/true-fotor-2023120624340.png")
+const matCapTextureTres = new THREE.TextureLoader().load("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a43529a6-5439-4e46-b973-e272e62c2e6c/d8f7djy-670bb7da-64e6-47f7-a387-6c5e74051592.jpg/v1/fill/w_1264,h_632,q_70,strp/saturn_planetary_texture_stock_image_by_uxmal750ad_d8f7djy-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NjQwIiwicGF0aCI6IlwvZlwvYTQzNTI5YTYtNTQzOS00ZTQ2LWI5NzMtZTI3MmU2MmMyZTZjXC9kOGY3ZGp5LTY3MGJiN2RhLTY0ZTYtNDdmNy1hMzg3LTZjNWU3NDA1MTU5Mi5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.9UIAIMHMD-G3E17aWeBliFg9raip15kt9uM3d8Iq4tc")
 fireMaterial.matcap = matCapTextureTres;
 
 const waterMaterial = new THREE.MeshMatcapMaterial();
-const matCapTextureCuatro = new THREE.TextureLoader().load("img/OIP-fotor-2023120624835.png")
+const matCapTextureCuatro = new THREE.TextureLoader().load("https://th.bing.com/th/id/R.885bfc319a2e8523cf84d486979fa568?rik=deqGEhlQ9TUDaA&riu=http%3a%2f%2fwww.esa.int%2fvar%2fesa%2fstorage%2fimages%2fesa_multimedia%2fimages%2f2013%2f02%2fsoutheast_of_amenthes_planum%2f12520788-4-eng-GB%2fSoutheast_of_Amenthes_Planum_newslist.jpg&ehk=VxV87MFOkwEU6SerHvMhwGXOWwFO9sgjvRmFNZJ7cvs%3d&risl=&pid=ImgRaw&r=0")
 waterMaterial.matcap = matCapTextureCuatro;
 
 const voidMaterial = new THREE.MeshMatcapMaterial();
-const matCapTextureCinco = new THREE.TextureLoader().load("img/R-fotor-2023120625125.png")
+const matCapTextureCinco = new THREE.TextureLoader().load("https://th.bing.com/th/id/OIP.7rd_bvr-joYRQkMm4yqmEAHaGe?w=549&h=480&rs=1&pid=ImgDetMain")
 voidMaterial.matcap = matCapTextureCinco;
 
 // CUBE
-const spheric = new THREE.SphereGeometry( 225, 15, 12);
+const spheric = new THREE.SphereGeometry( 225, 50, 12);
 const material = new THREE.MeshMatcapMaterial();
 const shpere = new THREE.Mesh( spheric, fireMaterial );
 
-const geometry = new THREE.SphereGeometry( 90, 15, 12);
+const geometry = new THREE.SphereGeometry( 90, 50, 12);
 const mesh = new THREE.Mesh( geometry, materialOne );
 
-const secondtGeometry = new THREE.SphereGeometry( 120, 15, 12);
+const secondtGeometry = new THREE.SphereGeometry( 120, 50, 12);
 const cubo = new THREE.Mesh( secondtGeometry, voidMaterial );
 
-const thirdtGeometry = new THREE.SphereGeometry( 130, 15, 12);
+const thirdtGeometry = new THREE.SphereGeometry( 130, 50, 12);
 const cubi = new THREE.Mesh( thirdtGeometry, rockMaterial );
 
-const fourthGeometry = new THREE.SphereGeometry( 80, 15, 12);
+const fourthGeometry = new THREE.SphereGeometry( 80, 50, 12);
 const cuba = new THREE.Mesh( fourthGeometry, waterMaterial );
 
-const fifthtGeometry = new THREE.SphereGeometry( 68, 15, 12);
+const fifthtGeometry = new THREE.SphereGeometry( 68, 50, 12);
 const cubu = new THREE.Mesh( fifthtGeometry, materialOne );
 
-const sixthtGeometry = new THREE.SphereGeometry( 140, 15, 12);
+const sixthtGeometry = new THREE.SphereGeometry( 140, 50, 12);
 const cubew = new THREE.Mesh( sixthtGeometry, waterMaterial );
 
-const seventhtGeometry = new THREE.SphereGeometry( 96, 15, 12);
+const seventhtGeometry = new THREE.SphereGeometry( 96, 50, 12);
 const cubewn = new THREE.Mesh( seventhtGeometry, rockMaterial );
 
 
-
+//
 //const planeGeometry = new THREE.PlaneGeometry(20, 20);
 //const planeMaterial = new THREE.MeshBasicMaterial({side: true, visible: false});
 //		
@@ -130,7 +142,7 @@ const cubewn = new THREE.Mesh( seventhtGeometry, rockMaterial );
 // SCENE OBJECTS 
 
 
-scene.add( torus,torusTwO, cube, mesh,cubo,cubi,cuba,cubu, cubew, cubewn,shpere );
+scene.add( torus, torusTwO, cube, mesh,cubo,cubi,cuba,cubu, cubew, cubewn,shpere );
 
 const renderer = new THREE.WebGLRenderer( { antialias: true } );
 
@@ -153,95 +165,74 @@ controls.maxDistance = 1500;
   }
 
 
-// Position
 
-	cubewn.position.x = -900;
-	cubewn.position.y = -55;
-	cubew.position.x = -450;
-	cubew.position.y = -750;
-	cubu.position.x = -1100;
-	cubu.position.y = 150;
-	cuba.position.x = 480;
-	cuba.position.y = 420;
-	torus.position.x = -1250;
-	torus.position.y = -300;
-	torusTwO.position.x = 900;
-	torusTwO.position.y = -400;
-	mesh.position.x = 900;
-	cube.position.x = -1250;
-	cube.position.y = -500;
-	cubo.position.x = 350;
-	cubo.position.y = 1000;
-	cubi.position.x = 1560;
-	cubi.position.y = 750;
+
 
 // Animation with GSAP
 
-gsap.globalTimeline.timeScale(0.8);
+gsap.globalTimeline.timeScale(1);
 
-
-gsap.from(cuba.position, { duration: 3.9, opacity: 0, x: -1800,  y: -550 });
-gsap.from(cube.position, { duration: 2.9, opacity: 0, x: 500, y: -450 });
-gsap.from(cubi.position, { duration: 4.0, opacity: 0, x: 1400, y: -2550});
-gsap.from(cubo.position, { duration: 3.1, opacity: 0, x: 800, y: 250,  });
-gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
-gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 750, y: 1550 });
-gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
-gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 5550, y: -7550 });
-gsap.from(torus.position, { duration: 4.5, opacity: 0, x: -2850});
-gsap.from(torusTwO.position, { duration: 4.5, opacity: 0, x: 1850 });
-gsap.from(shpere.rotation, { duration: 10, opacity: 1, x: -800, y: 790 });
-
-//
 //setTimeout(() => {
-//    scene.background = new THREE.Color("#EBEBEB"); 
+//    scene.background = new THREE.Color("#88CFFB"); 
 //}, 10000);
-
-//gsap.to(scene.background, { duration: 5, color: "#E9F1F7" });
-  
-
-
-//ScrollTrigger.create({
-//  trigger: torus,  // Elemento de activación
-//  start: "top 90%",  // Punto de inicio de la animación inversa
-//  end: "bottom 50%",  // Punto de finalización de la animación inversa
-//  onEnter: () => gsap.to(torus.position, { duration: 2, opacity: 0, x: -200, y: -200, ease: "power2.out" }),
-//  onLeaveBack: () => gsap.from(torus.position, { duration: 2, opacity: 0, x: -1150, y: -1550, ease: "power2.in" }),
-//	markers: true,
-//});
-//
-
-
+//  
 function animation(time){
-//
 
-cubewn.rotation.y = time / 1900;
-cubewn.rotation.x = time / -1550;
-cubew.rotation.y = time / 1900;
-cubew.rotation.x = time / -1750;
-cubu.rotation.y = time / 1900;
-cubu.rotation.x = time / -2450;
-cuba.rotation.y = time / 1900;
-cuba.rotation.x = time / -2150;
-torus.rotation.y = time / 2800;
-torus.rotation.x = time / 3750;
-torusTwO.rotation.y = time /-2800;
-torusTwO.rotation.x = time / -3750;
-mesh.rotation.y = time / -1900;
-mesh.rotation.x = time / -1650;
-cube.rotation.x = time / 1050;
-cube.rotation.y = time / -1900;
-cubo.rotation.x = time / 450;
-cubo.rotation.y = time / -1900;
-cubi.rotation.x = time / 950;
-cubi.rotation.y = time / 1900;
+const radius = 3500; // Radio de la órbita
+const speed = 0.00050; // Velocidad de la órbita
+
+const radiusDos = 2600; // Radio de la órbita
+const speedDos = 0.00030; // Velocidad de la órbita
+
+const radiusTres = 4600; // Radio de la órbita
+const speedTres = 0.00040; // Velocidad de la órbita
+
+const angle = time * speed;
+const angleTwo = time * speedDos;
+const angleThree = time * speedTres;
+
+// Position
+
+cubewn.position.y = radius * Math.sin(angle);
+cubewn.position.x = radius * Math.cos(angle);
+cubew.position.y = radiusDos * Math.cos(angleTwo);
+cubew.position.x = radiusDos * Math.sin(angleTwo);
+cubu.position.y = radiusTres * Math.sin(angleThree);
+cubu.position.x = radiusTres * Math.cos(angleThree);
+cuba.position.y = radius * Math.sin(angleTwo);
+cuba.position.x = radius * Math.cos(angleTwo);
+torus.rotation.y = time / 3270;
+torus.rotation.x = time / 2370;
+torusTwO.rotation.y = time /-2080;
+torusTwO.rotation.x = time / -1150;
+mesh.position.y = radiusDos * Math.sin(-angleTwo);
+mesh.position.x = radiusDos * Math.cos(angleTwo);
+cube.position.x = radius * Math.cos(angle)
+cube.position.y = radius * Math.sin(-angle);
+cubo.position.x = radiusTres * Math.cos(-angleTwo);
+cubo.position.y = radiusTres * Math.sin(angleTwo);
+cubi.position.x = radius * Math.cos(angleTwo);
+cubi.position.y = radius * Math.sin(-angleTwo);
 
 mesh.setAnimationLoop = true;
 
 renderer.render( scene, camera );
-
-
 }
+
+//
+//
+//gsap.from(cuba.rotation, { duration: 3.9, opacity: 0, x: -1800,  y: -550 });
+//gsap.from(cube.rotation, { duration: 2.9, opacity: 0, x: 500, y: -450 });
+//gsap.from(cubi.rotation, { duration: 4.0, opacity: 0, x: 1400, y: -2550});
+//gsap.from(cubo.rotation, { duration: 3.1, opacity: 0, x: 800, y: 250,  });
+//gsap.from(mesh.position, { duration: 3.6, opacity: 0,  y: -550 });
+//gsap.from(cubu.position, { duration: 3.8, opacity: 0, x: 750, y: 1550 });
+//gsap.from(cubewn.position, { duration: 2.0, opacity: 0, y: -550 });
+//gsap.from(cubew.position, { duration: 2.5, opacity: 0, x: 5550, y: -7550 });
+//gsap.from(torus.position, { duration: 4.5, opacity: 0, x: -2850});
+//gsap.from(torusTwO.position, { duration: 4.5, opacity: 0, x: 1850 });
+//gsap.from(shpere.rotation, { duration: 10, opacity: 1, x: -800, y: 790 });
+
 
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setAnimationLoop( animation );
